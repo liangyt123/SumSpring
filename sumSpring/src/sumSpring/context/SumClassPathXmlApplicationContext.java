@@ -47,11 +47,12 @@ public class SumClassPathXmlApplicationContext  implements ApplicationContext {
 		//在这里进行各种初始化
 		XmlSumBeanDefinitionReader sBeanDefinitionReader = new XmlSumBeanDefinitionReader(new SumResouceLoader());
 		sBeanDefinitionReader.loadSumBeanDefinitions(configuration);
-		beaFactory.preInstanceSumSinglelons();
+		
 		//进行注册
 		for(Map.Entry<String, SumBeanDefinition> beanDefinition:sBeanDefinitionReader.getRegister().entrySet()){
 			beaFactory.registerSumBeanDefinition(beanDefinition.getKey(), beanDefinition.getValue());
 		}
+		beaFactory.preInstanceSumSinglelons();
 		
 		
 	}
