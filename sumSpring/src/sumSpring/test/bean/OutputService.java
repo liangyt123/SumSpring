@@ -5,7 +5,7 @@ import sumSpring.test.SumHelloWorldService;
 public class OutputService {
 
     String text;
-	SumHelloWorldService helloWorldService = new SumHelloWorldService();
+	SumHelloWorldService helloWorldService ;
 	
 	public OutputService() {
 		text="outputService";
@@ -14,6 +14,6 @@ public class OutputService {
 	public void output()
 	{
 		System.out.println("this is "+text);
-		helloWorldService.helloWorld();
+		
 	}
 }

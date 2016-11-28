@@ -9,8 +9,10 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 
+	<!-- 这里不能有循环依赖 -->
 	<bean id = "outputService" class = "sumSpring.test.bean.OutputService">
 		<property name="helloWorldService" ref="helloWorldService"></property>
+		
 	</bean>
 	
 	<bean id = "helloWorldService" class = "sumSpring.test.SumHelloWorldService">

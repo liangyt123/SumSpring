@@ -5,7 +5,7 @@ import sumSpring.test.bean.OutputService;
 public class SumHelloWorldService {
 
 		private String text;
-		private OutputService outputService = new OutputService();
+		private OutputService outputService;
 		
 		
 	    public void helloWorld(){

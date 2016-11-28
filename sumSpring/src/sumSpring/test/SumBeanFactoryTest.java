@@ -72,6 +72,7 @@ public class SumBeanFactoryTest {
 		 * 
 		 * 
 		 * */
+		//实例化
 		sumBeanFactory.preInstanceSumSinglelons();
 		
 		//获取bean
