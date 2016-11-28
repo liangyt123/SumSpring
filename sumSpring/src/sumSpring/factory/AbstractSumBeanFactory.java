@@ -12,6 +12,8 @@ import sumSpring.SumBeanDefinition;
 /*
  * 引入property后对abstract进行改造,提供异常抛出
  * 转为普通Map
+ * 先实现IOC 再实现AOP 
+ * 循环依赖最后实现
  * 
  * */
 
@@ -23,7 +25,7 @@ public  abstract class AbstractSumBeanFactory  implements SumBeanFactory{
 	
 	
 	//把id的先初始化先,因为只有getBean的时候，他才进行反射
-	private List<String> beanDefinitionNames = new ArrayList<String>();
+	private List<String> sumSeanDefinitionNames = new ArrayList<String>();
 	
 	@Override
 	public Object getSumBean(String name) throws Exception
@@ -39,12 +41,26 @@ public  abstract class AbstractSumBeanFactory  implements SumBeanFactory{
 		//
 		Object obj = sumBeanDefinition.getSumBean();
 		if(obj == null)
+		{
+			//获取bean
 			obj = doCreateBean(sumBeanDefinition);
+			//禁止循环引用的措施
+			obj = initializeBean(obj, name);
+			
+		}
+			
 		return obj;
 	}
 	
 	
 	
+	private Object initializeBean(Object obj, String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 	//注册,即是将工厂的巨大Map填值
 	//必须将BeanFactory进行扩展，以期达到真正的ioc容器功能
 	public void registerSumBeanDefinition (String name,SumBeanDefinition sumBeanDefinition) throws Exception
@@ -56,11 +72,12 @@ public  abstract class AbstractSumBeanFactory  implements SumBeanFactory{
 	}
 
 
+	//先不考虑ref,直接创建类
 	public void preInstanceSumSinglelons() throws Exception{
-		for (Iterator it = this.beanDefinitionNames.iterator(); it.hasNext();) {
+		for (Iterator<String> it = this.sumSeanDefinitionNames.iterator(); it.hasNext();) {
 					String beanName = (String) it.next();
 					getSumBean(beanName);
-					}
+			}
 	}
 	/*
 	 * 初始化bean 提供初始化设值的方式builder设计模式
@@ -72,7 +89,7 @@ public  abstract class AbstractSumBeanFactory  implements SumBeanFactory{
 	 * 
 	 * 注解模式进行doCreatebean
 	 * 对doCreateBean进行改造
-	 * 
+	 * 为了解决循环依赖，最好是获取的时候在进行doCreate
 	 * @return object
 	 * */ 
 	
@@ -83,6 +100,7 @@ public  abstract class AbstractSumBeanFactory  implements SumBeanFactory{
 			Object bean = createSumBeanInstance(sumBean);
 			//进行property注入
 			applyPropertyValues(bean,sumBean);
+		
 			return bean;
 		
 	}
