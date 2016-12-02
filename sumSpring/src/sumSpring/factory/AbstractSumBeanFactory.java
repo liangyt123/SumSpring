@@ -25,7 +25,7 @@ public  abstract class AbstractSumBeanFactory  implements SumBeanFactory{
 	//增加reference参考功能的类
 	
 	
-	//把id的先初始化先,因为只有getBean的时候，他才进行反射
+	//把id的先初始化先,因为只有getBean的时候，他才进行反射，在getBean的时候才进行获取instance
 	private List<String> sumSeanDefinitionNames = new ArrayList<String>();
 	
 	@Override
@@ -57,7 +57,7 @@ public  abstract class AbstractSumBeanFactory  implements SumBeanFactory{
 	
 	private Object initializeBean(Object obj, String name) {
 		// TODO Auto-generated method stub
-		return null;
+		return obj;
 	}
 
 
